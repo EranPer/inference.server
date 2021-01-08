@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from joblib import dump, load
 import json
+import os
 
 app = Flask(__name__)
 model = load('life_expectancy_model.joblib')
@@ -115,4 +116,9 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    port = os.environ.get('PORT')
+
+    if port:
+        app.run(host='0.0.0.0', port=int(port))
+    else:
+        app.run()
