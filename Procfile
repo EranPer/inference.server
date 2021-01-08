@@ -1,1 +1,2 @@
-web: gunicorn server:life_expectancy_app
+web: python server.py
+# web: gunicorn server:example_app
