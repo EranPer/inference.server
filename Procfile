@@ -1,0 +1,1 @@
+web: gunicorn server:life_expectancy_app
