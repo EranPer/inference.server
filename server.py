@@ -46,7 +46,56 @@ def index():
 def predict_single():
     dict_for_prediction = request.args.to_dict(flat=False)
     if len(dict_for_prediction) == len(features):
-        return 'The prediction for ' + str(dict_for_prediction) + ' is ' + str(get_prediction(dict_for_prediction))
+        html = '''
+                <!DOCTYPE html>
+                    <html>
+                    <head>
+                    <style>
+                    table {
+                      font-family: arial, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+                    }
+
+                    td, th {
+                      border: 1px solid #dddddd;
+                      text-align: left;
+                      padding: 8px;
+                    }
+
+                    tr:nth-child(even) {
+                      background-color: #dddddd;
+                    }
+                    </style>
+                    </head>
+                    <body>
+
+                    <h2>Life expectancy prediction table</h2>
+
+                    <table>
+                      <tr>
+                '''
+        for feature in features:
+            html += '<th>'
+            html += feature
+            html += '</th>'
+        html += '<th>prediction</th>'
+        html += '</tr><tr>'
+        for item in dict_for_prediction.items():
+            html += '<td>'
+            html += str(item[1][0])
+            html += '</td>'
+        html += '<td>'
+        html += str(round(get_prediction(dict_for_prediction)[0], 2))
+        html += '</td>'
+        html += '''
+                </tr></table>
+
+                </body>
+                </html>
+                '''
+        return html
+        # return 'The prediction for ' + str(dict_for_prediction) + ' is ' + str(get_prediction(dict_for_prediction))
     return 'Please go back and check you put values for all of the features'
 
 
