@@ -26,7 +26,7 @@ def index():
                 <a href="https://www.kaggle.com/kumarajarshi/life-expectancy-who">Kaggle's dataset</a>
             </h2>
             
-            <form action="/predict_single">
+            <form action="/predict_single_ui">
             '''
     html += get_features_table()
     html += '''
@@ -44,6 +44,14 @@ def index():
 
 @app.route("/predict_single")
 def predict_single():
+    dict_for_prediction = request.args.to_dict(flat=False)
+    if len(dict_for_prediction) == len(features):
+        return 'The prediction for ' + str(dict_for_prediction) + ' is ' + str(get_prediction(dict_for_prediction))
+    return 'Please go back and check you put values for all of the features'
+
+
+@app.route("/predict_single_ui")
+def predict_single_ui():
     dict_for_prediction = request.args.to_dict(flat=False)
     if len(dict_for_prediction) == len(features):
         html = '''
