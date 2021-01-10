@@ -53,7 +53,7 @@ def predict_single():
 @app.route("/predict_single_ui")
 def predict_single_ui():
     dict_for_prediction = request.args.to_dict(flat=False)
-    if len(dict_for_prediction) == len(features):
+    if len(dict_for_prediction) == len(features) and not [''] in list(dict_for_prediction.values()):
         html = '''
                 <!DOCTYPE html>
                     <html>
